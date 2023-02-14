@@ -114,7 +114,6 @@ export default {
                             message: 'This flight was successfully edited',
                             type: 'success',
                         })
-                        //this.$router.push("/");
                     }
                     console.log(res)
                 })

@@ -5,7 +5,6 @@
         <el-space direction="vertical" size="large">
             <el-card class="box-card" style="width: 400px">
                 <div>
-                    <!-- <p>You want to add the flight: {{ airline }} / {{ originAirport }} / {{ destinationAirport }}</p> -->
                     <el-form-item>
                         <el-input type="text" placeholder="Flight airline" v-model="airline"></el-input>
                     </el-form-item>
@@ -130,7 +129,6 @@ export default {
                         this.date = ""
                         this.price = ""
 
-                        //this.$router.push("/reservations");
                     } else if (res.status === 500) {
                         ElNotification({
                             title: 'Error',

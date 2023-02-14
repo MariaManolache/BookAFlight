@@ -94,7 +94,6 @@ export default {
                             message: 'The reservation was successfully modified!',
                             type: 'success',
                         })
-                        //this.$router.push("/reservations");
                     }
                     console.log(res)
                 })

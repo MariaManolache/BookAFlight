@@ -1,7 +1,5 @@
 <template>
   <div class="hello">
-    <h1>{{ flight.airline }}</h1>
-    <p>sunt intr-un zbor de la {{  flight.origin.name }} la {{ flight.destination.name }} </p>
   </div>
 </template>
 
@@ -15,7 +13,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3 {
   margin: 40px 0 0;

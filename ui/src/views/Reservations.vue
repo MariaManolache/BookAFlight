@@ -1,6 +1,5 @@
 <template>
     <NavigationUser />
-    <!-- <component-to-re-render :key="componentKey" /> -->
         <el-main>
             <el-table :data="reservations" :default-sort="{ prop: 'date', order: 'descending' }" stripe
                 table-layout="auto" style="width: 100%">
@@ -42,7 +41,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import Reservation from '@/components/Reservation.vue'
 import { base_url, requestOptions } from '@/utils/requestOptions';
 import { ElNotification } from 'element-plus'
@@ -79,39 +77,12 @@ export default {
                 })
         } else {
             fetch(base_url + 'reservationsCurrentUser/' + localStorage.getItem("userId"), localRequestOptions)
-
                 .then((res) => {
-                    //if (res.status === 200) {
                     res.json().then((res) => {
                         this.reservations = res
                     })
-                    //}
                 })
-
-            // .then((res) => {
-            //         //if (res.status === 200) {
-            //         //let allReservations = []
-            //         res.json().then((res) => {
-            //             //allReservations = res
-            //             res.forEach(element => {
-            //                 // if (element.userId == localStorage.getItem('userId')) {
-            //                 this.reservations.push(element)
-            //                 //}
-            //             });
-            //             // allReservations.filter(function (reservation) {
-            //             //     if (reservation.userId == localStorage.getItem('userId')) {
-            //             //         return reservation;
-            //             //     }
-            //             // })
-            //             // this.reservations = allReservations
-            //             //this.reservations = res
-            //         })
-            //         // }
-
-            //         //else console.log('a aparut o eroare')
-            //     })
         }
-
 
         addEventListener('resize', () => {
             this.mobile = innerWidth <= 700
@@ -126,7 +97,6 @@ export default {
                 console.log("true")
                 return true;
             }
-            //return this.$store.state.isAuthenticated;
         },
         isAdmin() {
             if (localStorage.getItem("isAdmin") == "true") {
@@ -134,7 +104,6 @@ export default {
             } else if (localStorage.getItem("isAdmin") == "false") {
                 return false;
             }
-            //return this.$store.state.isAdmin;
         },
         reservations() {
             return this.reservations.slice(
@@ -147,7 +116,6 @@ export default {
         handleEdit(index, row) {
             let currentReservation = this.reservations.find(r => r.flightNumber == row.flightNumber && r.price == row.price
                 && r.numberOfTickets == row.numberOfTickets)
-            //let currentFlight = Array.prototype.find.call(this.flights, (x) => x.flightNumber == row.flightNumber)
             let currentReservationJ = JSON.stringify(currentReservation)
             let currentReservationP = JSON.parse(currentReservationJ)
             let currentReservationId = currentReservationP.id
@@ -177,7 +145,6 @@ export default {
         handleDelete(index, row) {
             let currentReservation = this.reservations.find(r => r.flightNumber == row.flightNumber && r.price == row.price
                 && r.numberOfTickets == row.numberOfTickets)
-            //let currentFlight = Array.prototype.find.call(this.flights, (x) => x.flightNumber == row.flightNumber)
             let currentReservationJ = JSON.stringify(currentReservation)
             let currentReservationP = JSON.parse(currentReservationJ)
             let currentReservationId = currentReservationP.id
@@ -192,13 +159,10 @@ export default {
                     if (res.status === 200) {
                         localRequestOptions.method = "GET"
                         fetch(base_url + 'reservationsCurrentUser/' + localStorage.getItem("userId"), localRequestOptions)
-
                             .then((res) => {
-                                //if (res.status === 200) {
                                 res.json().then((res) => {
                                     this.reservations = res
                                 })
-                                //}
                             })
 
                         ElNotification({
@@ -206,7 +170,6 @@ export default {
                             message: 'The selected reservation was deleted',
                             type: 'success',
                         })
-                        //this.$router.go()
                     }
                     console.log(res)
                 })

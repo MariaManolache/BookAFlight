@@ -8,27 +8,20 @@
                     <el-form-item>
                         <el-input v-model="lastName" placeholder="Last name" clearable />
                     </el-form-item>
-                    <!-- <input type="text" placeholder="First name" v-model="firstName"> -->
                     <el-form-item>
                         <el-input v-model="firstName" placeholder="First name" clearable />
                     </el-form-item>
-                    <!-- <input type="text" placeholder="Last name" v-model="lastName"> -->
                     <el-form-item>
                         <el-input v-model="email" placeholder="Email" clearable />
                     </el-form-item>
-                    <!-- <input type="text" placeholder="Email" v-model="email"> -->
                     <el-form-item>
                         <el-input v-model="phoneNumber" placeholder="Phone number" clearable />
                     </el-form-item>
-                    <!-- <input type="text" placeholder="Phone number" v-model="phoneNumber"> -->
                     <el-form-item>
                         <el-input v-model="password" class="w-50 m-2" type="password"
                             placeholder="Please input password" show-password clearable />
                     </el-form-item>
-                    <!-- <input type="text" placeholder="Password" v-model="password"> -->
                     <el-button type="success" plain @click="register">Register</el-button>
-                    <!-- <button @click="register">Register</button> -->
-
                 </div>
             </el-card>
         </el-space>
@@ -40,17 +33,7 @@ import { base_url, requestOptions } from '@/utils/requestOptions';
 import { ElNotification } from 'element-plus'
 import Navigation from '@/components/Navigation'
 import { ref } from 'vue'
-// import Vue from 'vue'
-// import notification from 'vue-notification-ui'
 
-// Vue.use(notification, {
-//   position: 'notification-top-right', // top, bottom, left, right
-//   duration: 5000, // default
-//   left: 20, // default
-//   bottom: 20, // default
-//   top: 20, // default
-//   right: 40 // default
-// })
 let activateIndex = ref('1')
 
 export default {
@@ -132,7 +115,6 @@ export default {
                             })
                             this.$router
                                 .push({ path: '/login' })
-                            //.then(() => { this.$router.go() })
                             console.log(res)
                         } else if (res.status === 500) {
                             ElNotification({

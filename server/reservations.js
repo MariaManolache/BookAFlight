@@ -12,12 +12,10 @@ function verifyToken(req, res, next) {
     const bearerToken = bearer[1]
     req.token = bearerToken
 
-    //console.log(req.token)
     jwt.verify(req.token, 'secret', (err, decoded) => {
 
       if (err) {
         if (err.expiredAt) {
-          //if token expired, the err object will have an 'expiredAt' key
           res.json({ "message": 'Your token has expired. Please re-authenticate' });
         } else {
           res.json({ "message": 'You are NOT authorized to access this resource' })
@@ -58,9 +56,6 @@ router
         reservation.phoneNumber = doc.data().user.phoneNumber;
         reservation.totalPrice = doc.data().totalPrice;
         reservation.user = doc.data().user;
-        // reservations.firstName = doc.data().user.firstName;
-        // reservations.lastName = doc.data().user.lastName;
-        // reservations.phoneNumber = doc.data().user.phoneNumber;
         reservations.push(reservation)
       });
       res.status(200).send(reservations);
@@ -106,7 +101,6 @@ router
       const addedReservation = await db.collection('reservations').add(newReservation);
       res.status(200).json(addedReservation);
     } catch (err) {
-      //console.log(err)
       res.status(500).json(err.message);
       next(err);
     }
@@ -134,7 +128,6 @@ router
       reservation.totalPrice = response.data().totalPrice;
       res.status(200).json(reservation)
     } catch (err) {
-      //console.log(err)
       res.status(500).json(err);
       next(err);
     }
@@ -162,31 +155,6 @@ router
       next(err);
     }
   })
-
-// router
-//   .route("/reservations/:id")
-//   .get(verifyToken, async (req, res) => {
-//     const response = await db.collection("reservations").doc(req.params.id).get();
-//     try {
-//       let reservation = {};
-//       reservation.airline = response.data().airline;
-//       reservation.flightNumber = response.data().flightNumber;
-//       reservation.originAirport = response.data().originAirport;
-//       reservation.destinationAirport = response.data().destinationAirport;
-//       reservation.price = response.data().price;
-//       reservation.date = response.data().date;
-//       reservation.flightLength = response.data().flightLength;
-//       reservation.numberOfTickets = response.data().numberOfTickets;
-//       reservation.email = response.data().email;
-//       reservation.firstName = response.data().firstName;
-//       reservation.lastName = response.data().lastName;
-//       reservation.phoneNumber = response.data().phoneNumber;
-//       return res.status(200).json(reservation)
-//     } catch (err) {
-//       //console.log(err)
-//       return res.status(500).json(err);
-//     }
-//   })
 
 router
   .route("/reservationsCurrentUser/:userId")

@@ -8,35 +8,6 @@ let secret = 'serverKeptSecret'
 const jwt = require('jsonwebtoken')
 const moment = require('moment')
 
-// function verifyToken(req,res,next){
-//   let token=req.headers['authorization']
-//   if(token){
-//     console.log(token)
-//       jwt.verify(token,'secret',(err,decoded)=>{
-//           if(err){
-//             console.log(err)
-//               if(err.expiredAt){
-//           console.log('Tokenul tau a expirat')
-//                  res.status(403)
-//                  res.send('expiredToken')
-//               }
-//               else{
-//                   console.log('Tokenul tau nu este bun')
-//                    res.status(403)
-//                    res.send('brokenToken')
-//               }
-
-//           }
-//           else{
-//               console.log(decoded)
-//               req.email=decoded.data
-//             next()
-//           }
-//       })
-//           }
-
-// }
-
 function getRandomFloat(min, max, decimals) {
   const str = (Math.random() * (max - min) + min).toFixed(decimals);
 
@@ -51,12 +22,10 @@ function verifyToken(req, res, next) {
     const bearerToken = bearer[1]
     req.token = bearerToken
 
-    //console.log(req.token)
     jwt.verify(req.token, 'secret', (err, decoded) => {
 
       if (err) {
         if (err.expiredAt) {
-          //if token expired, the err object will have an 'expiredAt' key
           res.json({ "message": 'Your token has expired. Please re-authenticate' });
         } else {
           res.json({ "message": 'You are NOT authorized to access this resource' })

@@ -6,15 +6,12 @@
                 <div class="login">
                     <p style="text-align:center;">Login</p>
                     <el-form-item>
-                        <!-- <input type="text" placeholder="Email" v-model="email"> -->
                         <el-input v-model="email" class="w-50 m-2" placeholder="Please input email address" clearable />
                     </el-form-item>
                     <el-form-item>
-                        <!-- <input type="text" placeholder="Password" v-model="password"> -->
                         <el-input v-model="password" class="w-50 m-2" type="password"
                             placeholder="Please input password" show-password clearable />
                     </el-form-item>
-                    <!-- <button @click="login">Login</button> -->
                     <el-button type="success" plain @click="login">Login</el-button>
                 </div>
             </el-card>
@@ -24,19 +21,6 @@
 
 <script>
 import { base_url, requestOptions } from '@/utils/requestOptions';
-// import { UiButton } from 'balm-ui/components/button';
-// import Vue from 'vue'
-// import notification from 'vue-notification-ui'
-
-// Vue.use(notification, {
-//   position: 'notification-top-right', // top, bottom, left, right
-//   duration: 5000, // default
-//   left: 20, // default
-//   bottom: 20, // default
-//   top: 20, // default
-//   right: 40 // default
-// })
-
 import { ElButton } from 'element-plus'
 import { h } from 'vue'
 import { ElNotification } from 'element-plus'
@@ -51,23 +35,12 @@ export default {
             isSignedIn: this.$store.state.isAuthenticated
         };
     },
-    // created() {
-    //     this.checkSignedIn()
-    // },
-    // updated() {
-    //     this.checkSignedIn()
-    // },
     computed: {
         isAuthentif() {
             return this.$store.state.isAuthentif;
         }
     },
     methods: {
-        // checkSignedIn() {
-        //     if (this.isSignedIn) {
-        //         this.$router.replace('/')
-        //     }
-        // },
         login() {
             if (this.email.length > 1 && this.password.length > 1) {
                 console.log("vrei sa trimiti: ", this.email + " / " + this.password);
@@ -90,7 +63,6 @@ export default {
                                 localStorage.setItem("userId", res.doc)
                                 console.log(res.doc)
                                 localStorage.setItem("isAdmin", res.isAdmin)
-                                // this.$store.state.isAdmin = res.isAdmin
                                 console.log(res.isAdmin)
                                 ElNotification({
                                     title: 'Login Successfull',
@@ -117,15 +89,6 @@ export default {
                                 type: 'error',
                             })
                         }
-                        // this.$notification(
-                        // 'Good job!', 
-                        // 'You clicked the button!',
-                        // 'success', 
-                        // async () => {
-                        // console.log('Clicked notification')
-                        //         }, 
-                        // 'A minute ago'
-                        // )
                     });
             } else {
                 ElNotification({

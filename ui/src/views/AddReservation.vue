@@ -63,22 +63,9 @@ export default {
         addReservation() {
             let localRequestOptions = { ...requestOptions }
             localRequestOptions.method = "GET"
-            // let postData = {
-            //     airline: this.airline,
-            //     originAirport: this.originAirport,
-            //     destinationAirport: this.destinationAirport,
-            //     flightLength: this.flightLength,
-            //     flightNumber: this.flightNumber
-            // }
-
-            //localRequestOptions.body = JSON.stringify(postData)
-
-            // localRequestOptions.headers.Authorization = "Bearer " + localStorage.getItem('token')
-            // console.log(localRequestOptions.headers.Authorization)
 
             fetch(base_url + 'users/' + localStorage.getItem("userId"))
                 .then((res) => {
-                    //if (res.status === 200) {
                     let totalPriceVar = Math.round(this.numberOfTickets * this.flight.price * 100) / 100
                     res.json().then((res) => {
                         let response = {
@@ -133,8 +120,6 @@ export default {
                                 console.log(res)
                             })
                     })
-
-                    //}
                 })
         }
     }

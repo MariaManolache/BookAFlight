@@ -16,7 +16,6 @@ const logger = require('morgan'); //importing a HTTP logger
 
 app.use(logger('dev')); //using the HTTP logger library
 
-//app.use("/", require("./properties"));
 var propertiesRouter = require('./flights');
 app.use('/', propertiesRouter);
 
@@ -24,85 +23,6 @@ var propertiesRouterReservations = require('./reservations');
 app.use('/', propertiesRouterReservations);
 
 let secret = 'serverKeptSecret'
-
-function verifyToken(req, res, next) {
-  const bearerHeader = req.headers['authorization']
-
-  if (typeof bearerHeader !== 'undefined') {
-    const bearer = bearerHeader.split(' ')
-    const bearerToken = bearer[1]
-    req.token = bearerToken
-
-    jwt.verify(req.token, secret, (err, decoded) => {
-
-      if (err) {
-        if (err.expiredAt) {
-          //if token expired, the err object will have an 'expiredAt' key
-          res.json({ "message": 'Your token has expired. Please re-authenticate' });
-        } else {
-          res.json({ "message": 'You are NOT authorized to access this resource' })
-        }
-      } else {
-        console.log(decoded.email)
-        res.send({ message: 'Well kept secret' })
-        next()
-      }
-    })
-  } else {
-    res.sendStatus(401)
-  }
-}
-
-
-
-// const data = {
-//     name: 'Los Angeles',
-//     state: 'CA',
-//     country: 'USA'
-//   };
-
-//   const res = dbFirebase.collection('cities').doc('LA').set(data);
-
-//   const resProperty1 = dbFirebase.collection('properties').doc('property1').set(db[0]);
-//   const resProperty2 = dbFirebase.collection('properties').doc('property2').set(db[1]);
-
-//   for (const property in db) {
-//     const resProperty = dbFirebase.collection('properties').doc(`${property.propertyName}`).set(`${db[property]}`);
-//   }
-
-//   db.forEach(function (arrayItem) {
-//     const resProperty = dbFirebase.collection('properties').doc(arrayItem.propertyName).set(arrayItem);
-// });
-
-// middleware 
-// function verifyToken(req, res, next) {
-//     let token = req.headers['authorization']
-//     if(token) {
-//         jwt.verify(token, serverSecret, (err, decoded) => {
-//             if(err) {
-//                 if(err.expiredAt) {
-//                     console.log('tokenul tau a expirat')
-//                     res.status(403)
-//                     res.send('expiredToken')
-//                 }
-//                 else {
-//                     console.log('tokenul tau nu este bun')
-//                     res.status(403)
-//                     res.send('brokenToken')
-//                 }
-//             } else {
-//                 console.log(decoded)
-//                 req.email = decoded.data
-//                 next()
-//             }
-//         })
-
-
-//         next()
-//     } else {
-//         res.status(401)
-//     }
-// }
 
 app.get('/', async (req, res, next) => {
 
@@ -116,9 +36,7 @@ app.get('/', async (req, res, next) => {
     flight.airline = doc.data().airline;
     flight.flightNumber = doc.data().flightNumber;
     flight.origin = doc.data().origin;
-    //flight.origin.name = doc.data().details.origin.name;
     flight.destination = doc.data().destination;
-    //flight.destination.name = doc.data().details.destination.name;
     flight.price = doc.data().price;
     flight.date = doc.data().date;
     flight.flightLength = doc.data().flightLength;
@@ -155,7 +73,6 @@ app.get('/users', async (req, res, next) => {
 app.get('/users/:id', async (req, res, next) => {
   try {
     const userRef = await db.collection('users').doc(req.params.id).get();
-    //const doc = await userRef.get();
     let user = {}
     user.id = req.params.id;
     user.lastName = userRef.data().lastName;
@@ -185,7 +102,6 @@ app.post('/register', async (req, res, next) => {
       bcrypt.hash(userToAdd.password, salt, function (err, hash) {
         userToAdd.password = hash
         db.collection("users").add(userToAdd)
-        //console.log (users)
       });
     });
     res.status(200).json({ message: "User added." })
@@ -233,25 +149,6 @@ app.post("/login", async (req, res) => {
   }
 
 })
-
-// app.post('/properties', verifyToken, (req, res) => {
-
-//     console.log(req.email)
-//     if(req.email === 'mihai.gheorghe@gdm.ro') {
-//         console.log('vrei sa adaugi camera de tipul ', req.body)
-//         //res.send('am adaugat')
-//         let property = {}
-//         property.propertyName = req.body.propertyName
-//         property.propertyType = req.body.propertyType
-//         console.log(property.propertyType)
-//         db.push(property)
-//         const resNewProperty = dbFirebase.collection('properties').add(db[db.length-1]);
-//         res.send({db})
-//     } else {
-//         res.status(403)
-//         res.send('Incerci sa adaugi o resursa pentru alta adresa de email')
-//     }
-// })
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}!`)

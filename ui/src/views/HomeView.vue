@@ -2,10 +2,7 @@
   <NavigationUser v-if="isAuthenticated" />
   <Navigation v-if="!isAuthenticated" />
   <div class="home" :class="{ mobile }">
-    <!-- <Navigation/> -->
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <el-header>
-      <!-- <el-button type="danger" raised v-if="isAuthenticated" @click="logout">LOGOUT</el-button> -->
       <el-button type="warning" v-if="isAuthenticated && isAdmin" @click="generateFlights">Generate flight</el-button>
     </el-header>
     <el-main>
@@ -40,34 +37,16 @@
       <el-pagination layout="prev, pager, next" :total="this.flights.length" @current-change="setPage">
       </el-pagination>
     </el-main>
-    <!-- <div v-for="i in flights" :key="i">
-      <Flight :flight="i" />
-    </div> -->
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import Flight from '@/components/Flight.vue'
 import { base_url, requestOptions } from '@/utils/requestOptions';
 import { randFlightDetails, randFloat } from '@ngneat/falso';
 import NavigationUser from "@/components/NavigationUser";
 import Navigation from "@/components/Navigation";
 
 import { ElNotification } from 'element-plus'
-
-// import { ref } from 'vue';
-// const componentKey = ref(0);
-
-// const forceRerender = () => {
-//   componentKey.value += 1;
-// };
-
-// function getRandomFloat(min, max, decimals) {
-//   const str = (Math.random() * (max - min) + min).toFixed(decimals);
-
-//   return parseFloat(str);
-// }
 
 export default {
   name: 'HomeView',
@@ -113,7 +92,6 @@ export default {
         console.log("true")
         return true;
       }
-      //return this.$store.state.isAuthenticated;
     },
     isAdmin() {
       if (localStorage.getItem("isAdmin") == "true") {
@@ -121,7 +99,6 @@ export default {
       } else if (localStorage.getItem("isAdmin") == "false") {
         return false;
       }
-      //return this.$store.state.isAdmin;
     },
     flights() {
       return this.flights.slice(this.pageSize * this.page - this.pageSize, this.pageSize * this.page)
@@ -135,15 +112,11 @@ export default {
       this.page = val
     },
     generateFlights() {
-      //console.log('vrei sa trimiti flight: ', this.airline + ' / ' + this.origin.name + ' / ' + this.destination.name)
       let localRequestOptions = { ...requestOptions }
       localRequestOptions.method = "POST"
       let postData = { details: randFlightDetails(), price: randFloat({ min: 100, max: 3000, fraction: 2 }) };
-      // let price = getRandomFloat(100, 200, 2)
-      //console.log("....." + price)
 
       localRequestOptions.body = JSON.stringify(postData)
-      //console.log(localRequestOptions.body)
 
       localRequestOptions.headers.Authorization = "Bearer " + localStorage.getItem('token')
       console.log(localRequestOptions.headers.Authorization)
@@ -165,7 +138,6 @@ export default {
               message: 'A random flight was successfully generated!',
               type: 'success',
             })
-            //this.$router.go()
           }
           console.log(res)
         })
@@ -175,7 +147,6 @@ export default {
       console.log(index, row)
       console.log(this.flights)
       let currentFlight = this.flights.find(f => f.flightNumber == row.flightNumber && f.price == row.price)
-      //let currentFlight = Array.prototype.find.call(this.flights, (x) => x.flightNumber == row.flightNumber)
       let currentFlightJ = JSON.stringify(currentFlight)
       let currentFlightP = JSON.parse(currentFlightJ)
       let currentFlightId = currentFlightP.id
@@ -202,7 +173,6 @@ export default {
     },
     handleEdit(index, row) {
       let currentFlight = this.flights.find(f => f.flightNumber == row.flightNumber && f.price == row.price)
-      //let currentFlight = Array.prototype.find.call(this.flights, (x) => x.flightNumber == row.flightNumber)
       let currentFlightJ = JSON.stringify(currentFlight)
       let currentFlightP = JSON.parse(currentFlightJ)
       let currentFlightId = currentFlightP.id
@@ -229,7 +199,6 @@ export default {
     },
     handleDelete(index, row) {
       let currentFlight = this.flights.find(f => f.flightNumber == row.flightNumber && f.price == row.price)
-      //let currentFlight = Array.prototype.find.call(this.flights, (x) => x.flightNumber == row.flightNumber)
       let currentFlightJ = JSON.stringify(currentFlight)
       let currentFlightP = JSON.parse(currentFlightJ)
       let currentFlightId = currentFlightP.id
@@ -255,12 +224,9 @@ export default {
               message: 'The selected flight has been deleted from the database.',
               type: 'success',
             })
-            //this.$router.go()
           }
           console.log(res)
         })
-
-      //window.location.reload()
     },
     logout() {
       ElNotification({
@@ -271,11 +237,6 @@ export default {
       localStorage.removeItem("token");
       localStorage.removeItem("isAdmin")
       this.$store.state.isAdmin = "false"
-      //window.location.reload()
-
-      //this.forceRerender();
-      //this.$router.push("/login");
-
       this.$router
         .push({ path: '/login' })
         .then(() => { this.$router.go() })
