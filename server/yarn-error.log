@@ -1,0 +1,46 @@
+Arguments: 
+  D:\Node.js\node.exe C:\Users\maria\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @ngneat/falso
+
+PATH: 
+  D:\oracledb\bin;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;D:\Putty\;C:\Program Files\dotnet\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\Node.js\;D:\Git\cmd;D:\SAS\x86\Secure\ccme4;D:\SAS\Secure\ccme4;C:\Oracle\instantclient_21_7;C:\Users\maria\AppData\Local\Programs\Python\Python39\Scripts\;C:\Users\maria\AppData\Local\Programs\Python\Python39\;C:\Users\maria\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\maria\AppData\Local\Programs\Python\Python37\;C:\Users\maria\AppData\Local\Microsoft\WindowsApps;C:\Users\maria\.dotnet\tools;C:\Program Files\JetBrains\PyCharm Community Edition 2020.3.3\bin;;D:\Microsoft VS Code\bin;C:\Users\maria\AppData\Roaming\npm;C:\Users\maria\AppData\Local\GitHubDesktop\bin;D:\TestProject\TestProject Agent;D:\HerokuCLI\heroku\bin;D:\IntelliJ\IntelliJ IDEA Community Edition 2021.3.2\bin;;C:\Oracle\instantclient_21_7;
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  14.18.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'D:\master - an1sem1\tic\proiect\server\node_modules\bcrypt\lib\binding\napi-v3\bcrypt_lib.node'
+
+npm manifest: 
+  {
+    "name": "proiect",
+    "version": "1.0.0",
+    "description": "",
+    "main": "main.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "@ngneat/falso": "^6.4.0",
+      "bcrypt": "^5.1.0",
+      "cors": "^2.8.5",
+      "express": "^4.18.2",
+      "firebase": "^9.15.0",
+      "firebase-admin": "^11.4.1",
+      "jsonwebtoken": "^8.5.1",
+      "morgan": "^1.10.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
